@@ -4,24 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warenkorb Demo</title>
+
     <script defer src="Cart.js"></script>
     <script defer src="CartUI.js"></script>
     <script defer src="CartController.js"></script>
+    
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Mein Webshop</h1>
     <div id="cart">
-        <h2>Warenkorb</h2>
+        <h1>🛒 Mein Webshop</h1>
+        <h2>Dein Warenkorb</h2>
         <ul id="cart-items"></ul>
         <p id="total-price">Gesamtpreis: 0€</p>
 
-        <label for="discount-code">Rabattcode:</label>
-        <input type="text" id="discount-code">
-        <button id="apply-discount">Rabatt anwenden</button>
-        
-        <button id="clear-cart">Warenkorb leeren</button>
-        <button id="add-random-product">Zufälliges Produkt hinzufügen</button>
+        <div class="input-group">
+            <label for="discount-code">🎟️ Rabattcode:</label>
+            <input type="text" id="discount-code">
+            <button id="apply-discount">Rabatt anwenden</button>
+        </div>
+
+        <div class="button-group">
+            <button id="clear-cart">❌ Warenkorb leeren</button>
+            <button id="add-random-product">➕ Zufälliges Produkt hinzufügen</button>
+        </div>
     </div>
 </body>
 </html>
