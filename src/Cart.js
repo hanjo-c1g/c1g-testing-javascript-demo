@@ -1,11 +1,11 @@
 class Cart {
     constructor() {
         this.availableProducts = [
-            { id: 1, name: "Laptop", price: 999 },
-            { id: 2, name: "Maus", price: 25 },
-            { id: 3, name: "Tastatur", price: 50 },
-            { id: 4, name: "Monitor", price: 200 },
-            { id: 5, name: "Headset", price: 75 }
+            { id: 1, name: "Laptop", price: 999, stock: 5 },
+            { id: 2, name: "Maus", price: 25, stock: 10 },
+            { id: 3, name: "Tastatur", price: 50, stock: 7 },
+            { id: 4, name: "Monitor", price: 200, stock: 3 },
+            { id: 5, name: "Headset", price: 75, stock: 8 }
         ];
         this.products = [];
         this.discount = 0;
@@ -22,7 +22,11 @@ class Cart {
 
     increaseQuantity(productId) {
         const product = this.products.find(p => p.id === productId);
-        if (product) product.quantity++;
+        const stock = this.availableProducts.find(p => p.id === productId).stock;
+
+        if (product && product.quantity < stock) {
+            product.quantity++;
+        }
     }
 
     decreaseQuantity(productId) {
@@ -30,7 +34,7 @@ class Cart {
         if (product) {
             product.quantity--;
             if (product.quantity <= 0) {
-                this.removeItem(productId); // Automatisch entfernen, wenn 0 erreicht
+                this.removeItem(productId);
             }
         }
     }
@@ -55,14 +59,17 @@ class Cart {
     }
 
     addProductById(productId) {
-        const product = this.availableProducts.find(p => p.id === productId);
-        if (!product) return;
+        const productData = this.availableProducts.find(p => p.id === productId);
+        if (!productData) return;
 
         const existingProduct = this.products.find(p => p.id === productId);
+
         if (existingProduct) {
-            existingProduct.quantity++;
+            if (existingProduct.quantity < productData.stock) {
+                existingProduct.quantity++;
+            }
         } else {
-            this.products.push({ ...product, quantity: 1 });
+            this.products.push({ ...productData, quantity: 1 });
         }
     }
 }
