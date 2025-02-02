@@ -24,14 +24,11 @@ class CartUI {
     updateUI() {
         this.cartItems.innerHTML = "";
         this.cart.products.forEach(product => {
-            const stockInfo = this.cart.getAvailableProducts().find(p => p.id === product.id).stock;
-            const remainingStock = stockInfo - product.quantity;
-
             const li = document.createElement("li");
             li.className = "cart-item";
             li.innerHTML = `
-                ${product.name} - ${product.price}€ x ${product.quantity} (Lager: ${remainingStock})
-                <button class="increase" data-id="${product.id}" ${remainingStock === 0 ? "disabled" : ""}>+</button>
+                ${product.name} - ${product.price}€ x ${product.quantity} 
+                <button class="increase" data-id="${product.id}">+</button>
                 <button class="decrease" data-id="${product.id}">-</button>
                 <button class="remove" data-id="${product.id}">🗑️</button>
             `;
