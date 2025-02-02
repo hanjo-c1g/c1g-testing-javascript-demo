@@ -3,6 +3,25 @@ class CartUI {
         this.cart = cart;
         this.cartItems = document.getElementById("cart-items");
         this.totalPriceElement = document.getElementById("total-price");
+        this.discountCodeInput = document.getElementById("discount-code");
+        this.applyDiscountButton = document.getElementById("apply-discount");
+        this.clearCartButton = document.getElementById("clear-cart");
+        this.addRandomProductButton = document.getElementById("add-random-product");
+
+        this.applyDiscountButton.addEventListener("click", () => {
+            this.cart.applyDiscount(this.discountCodeInput.value);
+            this.updateUI();
+        });
+
+        this.clearCartButton.addEventListener("click", () => {
+            this.cart.clearCart();
+            this.updateUI();
+        });
+
+        this.addRandomProductButton.addEventListener("click", () => {
+            this.cart.addRandomProduct();
+            this.updateUI();
+        });
     }
 
     updateUI() {
@@ -18,11 +37,11 @@ class CartUI {
             `;
             this.cartItems.appendChild(li);
         });
-        this.totalPriceElement.textContent = `Gesamtpreis: ${this.cart.calculateTotalPrice()}€`;
+
+        this.totalPriceElement.textContent = `Gesamtpreis: ${this.cart.calculateTotalPrice().toFixed(2)}€`;
     }
 }
 
-// ES6-Export für den Browser
 if (typeof window !== 'undefined') {
     window.CartUI = CartUI;
 }
