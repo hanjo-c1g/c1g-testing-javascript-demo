@@ -35,7 +35,7 @@ jobs:
           cp -r src/* public/  # Kopiert alle Dateien aus `src` nach `public`
       
       - name: ⬆️ GitHub Pages Artifact hochladen
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: public
 
