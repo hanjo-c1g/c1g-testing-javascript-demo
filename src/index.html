@@ -12,21 +12,29 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="cart">
-        <h1>🛒 Mein Webshop</h1>
-        <h2>Dein Warenkorb</h2>
-        <ul id="cart-items"></ul>
-        <p id="total-price">Gesamtpreis: 0€</p>
-
-        <div class="input-group">
-            <label for="discount-code">🎟️ Rabattcode:</label>
-            <input type="text" id="discount-code">
-            <button id="apply-discount">Rabatt anwenden</button>
+    <h1 id="shop-title">🛍️ Mein Online-Shop</h1>
+    <div class="container">
+        <!-- Produktliste -->
+        <div id="product-list">
+            <h2>📦 Produkte</h2>
+            <ul id="products"></ul>
         </div>
 
-        <div class="button-group">
-            <button id="clear-cart">❌ Warenkorb leeren</button>
-            <button id="add-random-product">➕ Zufälliges Produkt hinzufügen</button>
+        <!-- Warenkorb -->
+        <div id="cart">
+            <h2>🛒 Dein Warenkorb</h2>
+            <ul id="cart-items"></ul>
+            <p id="total-price">Gesamtpreis: 0€</p>
+
+            <div class="input-group">
+                <label for="discount-code">🎟️ Rabattcode:</label>
+                <input type="text" id="discount-code">
+                <button id="apply-discount">Rabatt anwenden</button>
+            </div>
+
+            <div class="button-group">
+                <button id="clear-cart">❌ Warenkorb leeren</button>
+            </div>
         </div>
     </div>
 </body>

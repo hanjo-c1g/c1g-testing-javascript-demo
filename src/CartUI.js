@@ -6,7 +6,7 @@ class CartUI {
         this.discountCodeInput = document.getElementById("discount-code");
         this.applyDiscountButton = document.getElementById("apply-discount");
         this.clearCartButton = document.getElementById("clear-cart");
-        this.addRandomProductButton = document.getElementById("add-random-product");
+        this.productList = document.getElementById("products");
 
         this.applyDiscountButton.addEventListener("click", () => {
             this.cart.applyDiscount(this.discountCodeInput.value);
@@ -18,10 +18,7 @@ class CartUI {
             this.updateUI();
         });
 
-        this.addRandomProductButton.addEventListener("click", () => {
-            this.cart.addRandomProduct();
-            this.updateUI();
-        });
+        this.renderProductList();
     }
 
     updateUI() {
@@ -39,6 +36,26 @@ class CartUI {
         });
 
         this.totalPriceElement.textContent = `Gesamtpreis: ${this.cart.calculateTotalPrice().toFixed(2)}€`;
+    }
+
+    renderProductList() {
+        this.cart.getAvailableProducts().forEach(product => {
+            const li = document.createElement("li");
+            li.className = "product-item";
+            li.innerHTML = `
+                ${product.name} - ${product.price}€
+                <button class="add-to-cart" data-id="${product.id}">In den Warenkorb</button>
+            `;
+            this.productList.appendChild(li);
+        });
+
+        document.querySelectorAll(".add-to-cart").forEach(button => {
+            button.addEventListener("click", (event) => {
+                const productId = parseInt(event.target.dataset.id);
+                this.cart.addProductById(productId);
+                this.updateUI();
+            });
+        });
     }
 }
 

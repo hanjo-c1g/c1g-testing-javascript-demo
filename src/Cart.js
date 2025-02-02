@@ -1,13 +1,18 @@
 class Cart {
     constructor() {
-        this.products = [
-            { id: 1, name: "Laptop", price: 999, quantity: 1 },
-            { id: 2, name: "Maus", price: 25, quantity: 1 },
-            { id: 3, name: "Tastatur", price: 50, quantity: 1 },
-            { id: 4, name: "Monitor", price: 200, quantity: 1 },
-            { id: 5, name: "Headset", price: 75, quantity: 1 }
+        this.availableProducts = [
+            { id: 1, name: "Laptop", price: 999 },
+            { id: 2, name: "Maus", price: 25 },
+            { id: 3, name: "Tastatur", price: 50 },
+            { id: 4, name: "Monitor", price: 200 },
+            { id: 5, name: "Headset", price: 75 }
         ];
+        this.products = [];
         this.discount = 0;
+    }
+
+    getAvailableProducts() {
+        return this.availableProducts;
     }
 
     calculateTotalPrice() {
@@ -22,7 +27,12 @@ class Cart {
 
     decreaseQuantity(productId) {
         const product = this.products.find(p => p.id === productId);
-        if (product && product.quantity > 1) product.quantity--;
+        if (product) {
+            product.quantity--;
+            if (product.quantity <= 0) {
+                this.removeItem(productId); // Automatisch entfernen, wenn 0 erreicht
+            }
+        }
     }
 
     removeItem(productId) {
@@ -44,21 +54,15 @@ class Cart {
         }
     }
 
-    addRandomProduct() {
-        const allProducts = [
-            { id: 6, name: "Tablet", price: 499, quantity: 1 },
-            { id: 7, name: "Smartphone", price: 799, quantity: 1 },
-            { id: 8, name: "Drucker", price: 150, quantity: 1 },
-            { id: 9, name: "Webcam", price: 89, quantity: 1 },
-            { id: 10, name: "USB-Stick", price: 20, quantity: 1 }
-        ];
+    addProductById(productId) {
+        const product = this.availableProducts.find(p => p.id === productId);
+        if (!product) return;
 
-        const randomProduct = allProducts[Math.floor(Math.random() * allProducts.length)];
-
-        if (!this.products.find(p => p.id === randomProduct.id)) {
-            this.products.push(randomProduct);
+        const existingProduct = this.products.find(p => p.id === productId);
+        if (existingProduct) {
+            existingProduct.quantity++;
         } else {
-            this.increaseQuantity(randomProduct.id);
+            this.products.push({ ...product, quantity: 1 });
         }
     }
 }
