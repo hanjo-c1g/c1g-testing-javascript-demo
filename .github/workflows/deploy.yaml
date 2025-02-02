@@ -1,0 +1,52 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Passe dies an, falls dein Hauptbranch anders heißt
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: 🔧 Node.js einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: 📦 Abhängigkeiten installieren
+        run: npm install
+
+      - name: ✅ Tests ausführen
+        run: npm test
+
+      - name: 📂 Deployment-Ordner vorbereiten
+        run: |
+          mkdir -p public
+          cp -r src/* public/  # Kopiert alle Dateien aus `src` nach `public`
+      
+      - name: ⬆️ Build-Artefakt hochladen
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: public  # Speichert die fertigen Dateien für den nächsten Job
+
+  deploy:
+    needs: build  # Läuft erst, wenn der `build`-Job erfolgreich war
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: 🚀 Deployment auf GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
