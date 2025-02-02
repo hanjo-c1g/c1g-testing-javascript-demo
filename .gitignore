@@ -1,2 +1,8 @@
+# vscode files
 .devcontainer
+
+# npm
 node_modules
+
+# jest
+coverage
