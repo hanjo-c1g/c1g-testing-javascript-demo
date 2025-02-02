@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Passe dies an, falls dein Hauptbranch anders heißt
+      - main
 
 permissions:
   contents: read
@@ -34,27 +34,19 @@ jobs:
           mkdir -p public
           cp -r src/* public/  # Kopiert alle Dateien aus `src` nach `public`
       
-      - name: ⬆️ Build-Artefakt hochladen (GitHub Pages kompatibel)
-        uses: actions/upload-artifact@v4
+      - name: ⬆️ GitHub Pages Artifact hochladen
+        uses: actions/upload-pages-artifact@v2
         with:
-          name: github-pages  # Name MUSS mit `download-artifact` übereinstimmen
-          path: public  # Speicherort der zu veröffentlichenden Dateien
-          retention-days: 1  # Artifact wird nach 1 Tag gelöscht (optional)
+          path: public
 
   deploy:
-    needs: build  # Läuft erst, wenn `build` erfolgreich war
+    needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: 📥 Artifact herunterladen (Korrektur)
-        uses: actions/download-artifact@v4
-        with:
-          name: github-pages  # Muss mit `upload-artifact` übereinstimmen
-          path: public  # Zielverzeichnis für das Deployment
-
       - name: 🚀 Deployment auf GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
