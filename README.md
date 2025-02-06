@@ -21,6 +21,14 @@ Dieses Repository enthält eine einfache Webanwendung mit **Unit-Tests** und **E
 └── README.md        # Dieses Dokument
 ```
 
+## 🚀 Wichtige JEST Testfunktionen
+
+`toBe()` → Vergleich für primitive Werte
+`toEqual()` → Vergleich für Objekte & Arrays
+`toContain()` → Prüft, ob ein Element in einem Array existiert
+`toBeTruthy()` / toBeFalsy() → Testet Wahrheitswerte
+`toThrow()` → Testet Fehlerhandling
+
 ## 🚀 Unit-Tests ausführen
 
 ### **1️⃣ Normale Unit-Tests starten**
