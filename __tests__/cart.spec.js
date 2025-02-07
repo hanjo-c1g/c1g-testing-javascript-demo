@@ -28,3 +28,11 @@ test("Entfernt ein Produkt aus dem Warenkorb", () => {
     cart.removeItem(1);
     expect(cart.products.find(p => p.id === 1)).toBeUndefined();
 });
+
+test("Cart zurücksetzen", () => {
+    const cart = new Cart();
+    cart.addProductById(1);
+
+    cart.clearCart();
+    expect(cart.products).toHaveLength(0);
+})
