@@ -1,19 +1,26 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
-  await page.goto('file:///workspaces/c1g-testing-javascript-demo/src/index.html');
+test.describe("Warenkorb UI Tests", () => {
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Warenkorb Demo/);
-});
+  test.beforeEach(async ({ page }) => {
+    await page.goto('file:///workspaces/c1g-testing-javascript-demo/src/index.html');
+  });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+  test('has title', async ({ page }) => {
+    await expect(page).toHaveTitle(/Warenkorb Demo/);
+  });
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
+  test('Seite lädt und Warenkorb ist initial leer', async ({ page }) => {
+    const cartItems = await page.locator('#cart-items');
+    await expect(cartItems).toBeEmpty();
+  });
 
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+  test('Produkt hinzufügen und Warenkorb aktualisiert sich', async ({ page }) => {
+    await page.click('button.add-to-cart:first-of-type');
+    
+    const cartItems = await page.locator('#cart-items');
+    await expect(cartItems).not.toBeEmpty();
+    await expect(cartItems).toContainText('x 1');
+  });
 });
