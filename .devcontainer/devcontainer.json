@@ -11,15 +11,20 @@
 		9323
 	],
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "yarn install",
+	"postCreateCommand": "sudo npx playwright install-deps && npx playwright install",
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
 			"extensions": [
-                "orta.vscode-jest"
+                "orta.vscode-jest",
+				"ms-playwright.playwright"
 			]
 		}
+	},
+	"containerEnv": {
+		"PLAYWRIGHT_HTML_HOST": "0.0.0.0"
 	}
+	
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
 }
