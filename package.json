@@ -11,11 +11,15 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "jest": "^29.7.0"
+    "@testing-library/jest-dom": "^6.6.3",
+    "jest": "^29.7.0",
+    "jest-axe": "^9.0.0",
+    "jest-environment-jsdom": "^29.7.0"
   },
   "jest": {
     "coverageReporters": [
       "html"
-    ]
+    ],
+    "testEnvironment": "jsdom"
   }
 }
