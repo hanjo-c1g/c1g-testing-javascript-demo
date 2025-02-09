@@ -44,6 +44,21 @@ npm run test:coverage
 ```
 Nach der Ausführung findest du den Coverage-Bericht im `coverage/`-Ordner.
 
+## Containerisierung
+
+### Docker Container bauen und starten
+
+```sh
+docker build -t meine-js-app .
+docker run -p 8080:80 meine-js-app
+```
+
+### Docker Container über docker-compose starten
+
+```sh
+docker-compose up
+```
+
 ## 🔧 Abhängigkeiten installieren
 Falls noch nicht geschehen, installiere alle benötigten Abhängigkeiten:
 ```sh
